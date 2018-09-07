@@ -2,10 +2,13 @@
 
 namespace App\DataImport;
 
+use App\DataImport\Factory\AccountFactory;
+use App\DataImport\Factory\CreditCardFactory;
 use App\DataImport\FileParser\CsvFileParser;
 use App\DataImport\FileParser\FileParserInterface;
 use App\DataImport\FileParser\JsonFileParser;
 use App\DataImport\FileParser\XmlFileParser;
+use App\Entity\Account;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\File\File;
 
@@ -38,8 +41,8 @@ class Importer
     public function import()
     {
         $loadedData = $this->loadFile();
-        $parsedData = $this->parseFile($loadedData);
-        $this->processData($parsedData);
+        $accountData = $this->parseFile($loadedData);
+        $this->processAccounts($accountData);
     }
 
     /**
@@ -82,8 +85,24 @@ class Importer
         }
     }
 
-    protected function processData(array $data)
+    protected function processAccounts(array $data)
     {
-        //
+        $accounts = [];
+        foreach ($data as $item) {
+            $account = $this->createAccountWithCreditCard($item);
+            $accounts[] = $account;
+        }
+    }
+
+    /**
+     * @param \stdClass $data
+     * @return Account
+     */
+    protected function createAccountWithCreditCard(\stdClass $data): Account
+    {
+        $account = AccountFactory::create($data);
+        $creditCard = CreditCardFactory::create($data->credit_card);
+        $account->addCreditCard($creditCard);
+        return $account;
     }
 }
