@@ -28,7 +28,7 @@ class CreditCardFactory implements FactoryInterface
     {
         $parts = explode('/', $expirationDate);
         $expiresAt = new \DateTime();
-        $expiresAt->setDate($parts[1], $parts[0], 1);
+        $expiresAt->setDate('20'.$parts[1], $parts[0], 1);
         return $expiresAt;
     }
 }
