@@ -7,10 +7,10 @@ use App\Entity\CreditCard;
 class CreditCardFactory implements FactoryInterface
 {
     /**
-     * @param object $data
+     * @param \stdClass $data
      * @return CreditCard
      */
-    public static function create(object $data): CreditCard
+    public static function create(\stdClass $data): CreditCard
     {
         $creditCard = new CreditCard();
         $creditCard->setNumber($data->number);

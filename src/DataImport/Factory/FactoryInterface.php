@@ -4,5 +4,9 @@ namespace App\DataImport\Factory;
 
 interface FactoryInterface
 {
-    public static function create(object $data): mixed;
+    /**
+     * @param \stdClass $data
+     * @return mixed
+     */
+    public static function create(\stdClass $data);
 }

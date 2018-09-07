@@ -7,10 +7,10 @@ use App\Entity\Account;
 class AccountFactory implements FactoryInterface
 {
     /**
-     * @param object $data
+     * @param \stdClass $data
      * @return Account
      */
-    public static function create(object $data): Account
+    public static function create(\stdClass $data): Account
     {
         $account = new Account();
         $account->setNumber($data->account);
