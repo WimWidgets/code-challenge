@@ -114,7 +114,7 @@ class Account
         return $this->birthDateAt;
     }
 
-    public function setBirthDateAt(?\DateTimeInterface $birthDateAt): self
+    public function setBirthDateAt(?\DateTimeInterface $birthDateAt = null): self
     {
         $this->birthDateAt = $birthDateAt;
 
@@ -138,7 +138,7 @@ class Account
         return $this->description;
     }
 
-    public function setDescription(?string $description): self
+    public function setDescription(?string $description = null): self
     {
         $this->description = $description;
 
@@ -150,7 +150,7 @@ class Account
         return $this->interest;
     }
 
-    public function setInterest(?string $interest): self
+    public function setInterest(?string $interest = null): self
     {
         $this->interest = $interest;
 
