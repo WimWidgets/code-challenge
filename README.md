@@ -25,3 +25,8 @@ or:
 ```
 php bin/console server:run [{host}:{port}]
 ```
+### Import
+Run the data import with the following command:
+```
+php bin/console challenge:data-import {file}
+```
