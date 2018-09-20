@@ -8,6 +8,7 @@ use App\DataImport\FileParser\CsvFileParser;
 use App\DataImport\FileParser\FileParserInterface;
 use App\DataImport\FileParser\JsonFileParser;
 use App\DataImport\FileParser\XmlFileParser;
+use App\DataImport\Validator\AccountValidator;
 use App\Entity\Account;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\File\File;
@@ -85,12 +86,17 @@ class Importer
         }
     }
 
+    /**
+     * @param array $data
+     */
     protected function processAccounts(array $data)
     {
         $accounts = [];
         foreach ($data as $item) {
             $account = $this->createAccountWithCreditCard($item);
-            $accounts[] = $account;
+            if (AccountValidator::validate($account)) {
+                $accounts[] = $account;
+            }
         }
     }
 
