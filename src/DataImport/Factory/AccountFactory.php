@@ -30,6 +30,12 @@ class AccountFactory implements FactoryInterface
      */
     protected static function parseBirthDateAt(?string $dateOfBirth = null): ?\DateTimeInterface
     {
-        return $dateOfBirth ? new \DateTime($dateOfBirth) : null;
+        if ($dateOfBirth) {
+            $timestamp = strtotime($dateOfBirth);
+            $dateTime = new \DateTime();
+            $dateTime->setTimestamp($timestamp);
+            return $dateTime;
+        }
+        return null;
     }
 }
